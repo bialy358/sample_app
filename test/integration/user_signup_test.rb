@@ -10,6 +10,8 @@ class UserSignupTest < ActionDispatch::IntegrationTest
                     password_confirmation: "as"}
    end
    assert_template 'users/new'
+   assert_select 'div#error_explanation'
+   assert_select 'div.field_with_errors'
    end
   test "valid signup" do
     assert_difference 'User.count', 1 do
@@ -19,5 +21,6 @@ class UserSignupTest < ActionDispatch::IntegrationTest
                               password_confirmation: "correctpassword"}
     end
     assert_template 'users/show'
+    assert_not flash.nil?
   end
 end
